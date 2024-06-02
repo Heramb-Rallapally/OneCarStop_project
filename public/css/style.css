@@ -1,0 +1,104 @@
+
+body {
+    background-color: orange;
+}
+.f-info-links a {
+    text-decoration:none;
+    color:#222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+.f-info-links {
+    width:100%;
+    text-align: center;
+    vertical-align: middle;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+}
+.f-info-socials {
+    width:100%;
+}
+
+.f-info {
+    height: 5rem;
+    text-align: centre;
+    flex-wrap: wrap;
+    display: flex;
+    vertical-align: middle;
+    background-color:whitesmoke;
+    justify-content: center;
+    align-items: space-evenly;;
+}
+.gap {
+    margin-right: 10px; /* Adjust the value as needed */
+}
+.homepage_info {
+    text-align: left;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+.container {
+    display: flex;
+    align-items: center; /* Align items vertically center */
+    justify-content: space-between; /* Optional: Distribute space between items */
+}
+
+.text_container {
+    flex: 1; /* Take up available space */
+    padding: 20px; /* Add some padding for better spacing */
+}
+
+.image_container {
+    flex-shrink: 0; /* Prevent the image from shrinking */
+    padding: 20px; /* Add some padding for better spacing */
+}
+.login_heading_div {
+    flex: 1; /* Allow the form container to take up space */
+    text-align: center;
+    padding: 20px; /* Optional: add padding if needed */
+}
+
+.login_heading {
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between heading and form */
+}
+.signup_heading_div {
+    flex: 1; /* Allow the form container to take up space */
+    text-align: center;
+    padding: 20px; /* Optional: add padding if needed */
+}
+
+.signup_heading {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between heading and form */
+}
+
+.signup_form {
+    width: 100%; /* Ensure form takes up full width within container */
+    max-width: 400px; /* Optional: set a max-width for the form */
+    text-align: left; /* Align form elements to the left */
+}
+
+/* Style for the image */
+.signup_image {
+    max-width: 500px; /* Set a maximum width for the image */
+    width: 100%; /* Ensure the image is responsive */
+    height: auto; /* Maintain the aspect ratio */
+    border: 5px solid #ddd; /* Add a border to the image */
+    border-radius: 10px; /* Optional: add rounded corners */
+    margin-left: 20px; /* Space between the form and the image */
+}
