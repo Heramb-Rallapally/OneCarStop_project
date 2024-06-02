@@ -40,8 +40,16 @@ router.post("/login", passport.authenticate("local", {
   failureRedirect: '/login', failureFlash: true ,
 }), async (req, res) => {
   console.log("working");
+  console.log(req.user.username);
   req.flash("Welcome to OneStopCar: You are logged in!");
-  res.redirect("/");
+  res.redirect(`/${req.user.username}`);
+});
+
+router.get("/:username", (req, res) => {
+  const username = req.params.username;
+  const flashMessage = "Welcome, You have logged in.";
+  res.render("personal/personal.ejs", { username: username, flashMessage: flashMessage });
 });
 
 module.exports = router;
+
