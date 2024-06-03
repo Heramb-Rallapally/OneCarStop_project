@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");
 const passport = require("passport");  // Correctly require passport at the top
-
+const Carinfo=require("../models/carinfo.js");
 // GET signup route
 router.get("/signup", (req, res) => {  
   console.log("get req");
@@ -45,11 +45,26 @@ router.post("/login", passport.authenticate("local", {
   res.redirect(`/${req.user.username}`);
 });
 
-router.get("/:username", (req, res) => {
+/*router.get("/:username", (req, res) => {
   const username = req.params.username;
   const flashMessage = "Welcome, You have logged in.";
   res.render("personal/personal.ejs", { username: username, flashMessage: flashMessage });
+});*/
+
+// Display route
+router.get("/display", async (req, res) => {
+  try {
+    const allUsers = await Carinfo.find({});
+    console.log(allUsers); // Debugging line to check the data
+    res.render("cred/display.ejs", { allUsers });
+  } catch (error) {
+    console.error("Error fetching data from the database: ", error);
+    req.flash("error", "Error displaying users. Please try again later.");
+    res.redirect("/error");  // Ensure this route exists or handle it appropriately
+  }
 });
+
+
 
 module.exports = router;
 
