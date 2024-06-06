@@ -28,8 +28,4 @@ const allCars = [{
     console.log(err);
 });*/
 
-db.carinfos.updateOne(
-  { Owner: "Surya" },
-  { $set: { imageUrl: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Maruti/Ertiga/9538/1677834015185/front-left-side-47.jpg" } }
-)
 
