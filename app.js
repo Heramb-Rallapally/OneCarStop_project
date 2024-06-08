@@ -4,44 +4,49 @@ const mongoose = require('mongoose');
 const path = require('path');
 const Carinfo = require('./models/carinfo.js');
 const passport = require("passport");
-const localStrategy = require("passport-local").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 const userRouter = require("./routes/user.js");
-const ejsMate =require("ejs-mate");
+const ejsMate = require("ejs-mate");
 
-app.engine('ejs',ejsMate);
-// Define session options before using them
+app.engine('ejs', ejsMate);
+
+// Middleware setup
+app.use(express.static(path.join(__dirname, "public")));
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+
 const sessionOptions = {
   secret: 'yourSecretKey',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Note: set secure to true if using HTTPS
+  cookie: { secure: false } 
 };
-app.use(express.static(path.join(__dirname, "public")));
-// Set up views and static files
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-app.use(express.static('public'));
 
-app.use(express.urlencoded({ extended: true }));
-
-// Use session middleware
 app.use(session(sessionOptions));
-
-// Use flash for flash messages
 app.use(flash());
-app.use(userRouter);
 
-// Initialize passport and use session with passport
+// Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configure passport-local to use the user model for authentication
-passport.use(new localStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser()); // To store user info
-passport.deserializeUser(User.deserializeUser()); // If user finishes session, logout
+// Flash message middleware
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+// Passport Local Strategy
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// Routes
+app.use('/', userRouter);
 
 // Database connection
 async function main() {
@@ -51,11 +56,10 @@ async function main() {
 
 main().catch(err => console.log(err));
 
-//starting server 
+// Start the server
 app.listen(8080, () => {
   console.log("Server listening on port 8080");
 });
-
 
 app.get("/", (req, res) => {
   res.render("home/home.ejs");
@@ -70,4 +74,9 @@ app.get("/demouser", async (req, res) => {
   res.send(registeredUser);
 });
 
-console.log("done");
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  req.flash('error', 'Something went wrong!');
+  res.redirect('/');
+});

@@ -15,7 +15,7 @@
                 <a class="nav-link" href="/signup">SIGNUP</a>
             </li>
             <li class="nav-item" id="addCarNavItem">
-                <a class="nav-link" href="#">ADD YOUR CAR</a>
+                <a class="nav-link" href="/<%= username %>/new">ADD YOUR CAR</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">PUC</a>
@@ -26,17 +26,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">FIND A USER</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">LOGOUT</a>
+            </li>
         </ul>
     </div>
 </nav>
-
-<script>
-    // Get the username from wherever you have it stored
-    var username = "Heramb";
-
-    // Find the "ADD YOUR CAR" nav item by its ID
-    var addCarNavItem = document.getElementById("addCarNavItem");
-
-    // Set the href attribute of the "ADD YOUR CAR" link with the username
-    addCarNavItem.querySelector("a").href = "/" + username + "/new";
-</script>

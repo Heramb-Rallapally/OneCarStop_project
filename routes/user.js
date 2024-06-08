@@ -1,24 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user.js");
-const passport = require("passport");  // Correctly require passport at the top
-const Carinfo=require("../models/carinfo.js");
+const passport = require("passport");
+const flash = require('connect-flash');
+const Carinfo = require("../models/carinfo.js");
+
 // GET signup route
 router.get("/signup", (req, res) => {  
-  console.log("get req");
-  res.render("../views/users/signup.ejs");
+  res.render("users/signup.ejs");
 });
 
 // POST signup route
 router.post("/signup", async (req, res) => {
-  let { username, email, password } = req.body;
-  console.log("post req");
+  const { username, email, password } = req.body;
   const newUser = new User({ email, username });
 
   try {
     const registeredUser = await User.register(newUser, password);
-    console.log("registration done!");
-
     req.flash("success", "Login to OneCarStop");
     res.redirect("/login");
   } catch (error) {
@@ -29,60 +27,52 @@ router.post("/signup", async (req, res) => {
 
 // GET login route
 router.get("/login", (req, res) => {
-  res.render("users/login.ejs", { 
-    error: req.flash("error"), 
-    success: req.flash("success") 
-  });
+  res.render("users/login.ejs");
 });
 
 // POST login route
 router.post("/login", passport.authenticate("local", { 
-  failureRedirect: '/login', failureFlash: true ,
-}), async (req, res) => {
-  console.log("working");
-  console.log(req.user.username);
-  req.flash("Welcome to OneStopCar: You are logged in!");
+  failureRedirect: '/login', failureFlash: true 
+}), (req, res) => {
+  req.flash("success", "Welcome to OneStopCar: You are logged in!");
   res.redirect(`/${req.user.username}`);
 });
 
-router.get("/:username", (req, res) => {
-  const username = req.params.username;
-  const flashMessage = "Welcome, You have logged in.";
-  res.render("personal/personal.ejs", { username: username, flashMessage: flashMessage });
+// GET logout route
+router.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "You are logged out");
+    res.redirect("/");
+  });
 });
 
-// Display route
-/*router.get("/display", async (req, res) => {
-  try {
-    const allUsers = await Carinfo.find({});
-    console.log(allUsers); // Debugging line to check the data
-    res.render("cred/display.ejs", { allUsers });
-  } catch (error) {
-    console.error("Error fetching data from the database: ", error);
-    req.flash("error", "Error displaying users. Please try again later.");
-    res.redirect("/error");  // Ensure this route exists or handle it appropriately
-  }
-});*/
-router.get("/:username/new",(req,res)=>
-{
-  const {username} =req.params;
-res.render("cred/create.ejs", {username});
+// User-specific route
+router.get("/:username", (req, res) => {
+  const { username } = req.params;
+  res.render("personal/personal.ejs", { username });
 });
+
+// Create new car listing route
+router.get("/:username/new", (req, res) => {
+  const { username } = req.params;
+  res.render("cred/create.ejs", { username });
+});
+
 router.post("/:username", async (req, res) => {
-  const { username } = req.params;  // Destructure username from req.params
-  let info = req.body.info;
-  console.log(info);
+  const { username } = req.params;
+  const info = req.body.info;
 
   try {
     const newlisting = new Carinfo(info);
     await newlisting.save();
-    res.redirect(`/${username}`);  // Use template string for redirection
+    res.redirect(`/${username}`);
   } catch (error) {
-    console.error("Error saving car info:", error);
     req.flash("error", "Error saving car information. Please try again.");
     res.redirect(`/${username}/new`);
   }
-})
+});
 
 module.exports = router;
-

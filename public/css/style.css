@@ -56,8 +56,6 @@ body {
     padding: 20px; /* Add padding for spacing */
     max-width: 50%; /* Limit the width to 50% of the container */
 }
-  padding: 20px; /* Add some padding for better spacing */
-}
 .login_heading_div {
     flex: 1; /* Allow the form container to take up space */
     text-align: center;

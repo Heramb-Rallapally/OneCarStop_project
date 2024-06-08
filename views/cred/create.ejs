@@ -1,33 +1,41 @@
-<% layout("layouts/boilerplate_personal.ejs") %>  
+<% layout("layouts/boilerplate_personal.ejs") %>
+<style>
+    .custom-spacing {
+        width: 250px; /* Adjust as needed */
+    }
+</style>
 <body>
     <div class="container">
         <form method="POST" action="/<%=username %>" class="mb-4">
             <div class="row mt-3">
-                <div class="col-md-6 d-flex flex-column mb-3 mx-2">
+                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
                     <label for="Owner" class="form-label">Owner Name:</label>
                     <input name="info[Owner]" placeholder="Enter owner name" type="text" class="form-control form-control-lg custom-input">
                 </div>
-                <div class="col-md-6 d-flex flex-column mb-3 mx-2">
+                <div class="custom-spacing"></div> <!-- Add space -->
+                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
                     <label for="CarModel" class="form-label">Car Model:</label>
                     <input name="info[CarModel]" placeholder="Enter Car Model" class="form-control form-control-lg custom-input">
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-md-6 d-flex flex-column mb-3 mx-2">
+                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
                     <label for="Aadhar_No" class="form-label">Aadhar Number:</label>
                     <input name="info[Aadhar_No]" placeholder="Enter Aadhar card" class="form-control form-control-lg custom-input">
                 </div>
-                <div class="col-md-6 d-flex flex-column mb-3 mx-2">
+                <div class="custom-spacing"></div> <!-- Add space -->
+                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
                     <label for="imageUrl" class="form-label">Car Image Url:</label>
                     <input name="info[imageUrl]" placeholder="Enter Car ImageUrl" class="form-control form-control-lg custom-input">
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-md-6 d-flex flex-column mb-3 mx-2">
+                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
                     <label for="created_at" class="form-label">Created At:</label>
                     <input name="info[created_at]" type="date" class="form-control form-control-lg custom-input">
                 </div>
-                <div class="col-md-6 d-flex flex-column mb-3 mx-2">
+                <div class="custom-spacing"></div> <!-- Add space -->
+                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
                     <label for="CarPlate" class="form-label">CarPlate:</label>
                     <input name="info[CarPlate]" placeholder="Enter CarPlate Number" class="form-control form-control-lg custom-input">
                 </div>
