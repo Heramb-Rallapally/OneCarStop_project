@@ -14,7 +14,6 @@ router.get("/signup", (req, res) => {
 router.post("/signup", async (req, res) => {
   const { username, email, password } = req.body;
   const newUser = new User({ email, username });
-
   try {
     const registeredUser = await User.register(newUser, password);
     req.flash("success", "Login to OneCarStop");
@@ -75,6 +74,13 @@ router.post("/:username", async (req, res) => {
     req.flash("error", "Error saving car information. Please try again.");
     res.redirect(`/${username}/new`);
   }
+});
+router.get("/:username/details",async(req,res)=>
+{
+const person_owner=req.params.username;
+console.log(person_owner);
+const account_user=await Carinfo.findOne({Owner:person_owner});
+res.render("cred/personal_info.ejs",{info:account_user});
 });
 
 module.exports = router;
