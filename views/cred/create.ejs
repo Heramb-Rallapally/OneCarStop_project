@@ -1,46 +1,71 @@
 <% layout("layouts/boilerplate_personal.ejs") %>
 <style>
+    .form-container {
+        max-width: 600px; /* Adjust max-width for the form container */
+        margin: auto;
+    }
+    .form-label {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    .form-control-lg {
+        font-size: 1.5rem;
+    }
     .custom-spacing {
-        width: 250px; /* Adjust as needed */
+        margin-bottom: 30px; /* Adjust margin as needed for spacing between rows */
+    }
+    .custom-input-spacing {
+        margin-bottom: 30px; /* Adjust margin as needed for spacing between fields within a row */
     }
 </style>
 <body>
-    <div class="container">
-        <form method="POST" action="/<%=username %>" class="mb-4">
-            <div class="row mt-3">
-                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
+    <div class="container form-container">
+        <form method="POST" action="/<%= username %>" class="mb-4">
+            <div class="row mt-3 custom-spacing">
+                <div class="col-md-6 mb-3 custom-input-spacing">
                     <label for="Owner" class="form-label">Owner Name:</label>
                     <input name="info[Owner]" placeholder="Enter owner name" type="text" class="form-control form-control-lg custom-input">
                 </div>
-                <div class="custom-spacing"></div> <!-- Add space -->
-                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
+                <div class="col-md-6 mb-3 custom-input-spacing">
                     <label for="CarModel" class="form-label">Car Model:</label>
                     <input name="info[CarModel]" placeholder="Enter Car Model" class="form-control form-control-lg custom-input">
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
+            <div class="row mt-3 custom-spacing">
+                <div class="col-md-6 mb-3 custom-input-spacing">
                     <label for="Aadhar_No" class="form-label">Aadhar Number:</label>
                     <input name="info[Aadhar_No]" placeholder="Enter Aadhar card" class="form-control form-control-lg custom-input">
                 </div>
-                <div class="custom-spacing"></div> <!-- Add space -->
-                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
+                <div class="col-md-6 mb-3 custom-input-spacing">
                     <label for="imageUrl" class="form-label">Car Image Url:</label>
                     <input name="info[imageUrl]" placeholder="Enter Car ImageUrl" class="form-control form-control-lg custom-input">
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
+            <div class="row mt-3 custom-spacing">
+                <div class="col-md-6 mb-3 custom-input-spacing">
                     <label for="created_at" class="form-label">Created At:</label>
                     <input name="info[created_at]" type="date" class="form-control form-control-lg custom-input">
                 </div>
-                <div class="custom-spacing"></div> <!-- Add space -->
-                <div class="col-md-4 d-flex flex-column mb-3 mx-2">
+                <div class="col-md-6 mb-3 custom-input-spacing">
                     <label for="CarPlate" class="form-label">CarPlate:</label>
                     <input name="info[CarPlate]" placeholder="Enter CarPlate Number" class="form-control form-control-lg custom-input">
                 </div>
             </div>
-            <button class="btn btn-dark mt-3" type="submit">Submit</button>
+            <div class="row mt-3 custom-spacing">
+                <div class="col-md-6 mb-3 custom-input-spacing">
+                    <label for="Puc_Expiry" class="form-label">PUC Expiry Date:</label>
+                    <input name="info[Puc_Expiry]" type="date" class="form-control form-control-lg custom-input">
+                </div>
+                <div class="col-md-6 mb-3 custom-input-spacing">
+                    <label for="License_Expiry" class="form-label">License Expiry Date:</label>
+                    <input name="info[License_Expiry]" type="date" class="form-control form-control-lg custom-input">
+                </div>
+            </div>
+            <div class="row mt-3 custom-spacing">
+                <div class="col-12 mb-3">
+                    <button class="btn btn-dark mt-3 w-100" type="submit">Submit</button>
+                </div>
+            </div>
         </form>
     </div>
 </body>

@@ -54,7 +54,9 @@ body {
 .image_container {
     flex-shrink: 0; /* Prevent the image from shrinking */
     padding: 20px; /* Add padding for spacing */
-    max-width: 50%; /* Limit the width to 50% of the container */
+    max-width: 50%; 
+    width: 400px;
+    height:300px/* Limit the width to 50% of the container */
 }
 .login_heading_div {
     flex: 1; /* Allow the form container to take up space */
