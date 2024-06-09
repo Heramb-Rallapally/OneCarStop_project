@@ -3,14 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Details</title>
+    <title>Car Information</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles specific to your layout */
+        .content {
+            position: relative;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 8px;
+            width: 1000px;
+            height: 700px;
+        }
+        .innerinfo {
+            width: 100%; /* Ensure each row takes up full width */
+            margin-bottom: 10px; /* Adjust margin between rows */
+        }
+        .info h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .info p {
+            font-size: 25px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .car-image {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            max-width: 55%;
+        }
+        .car-image img {
+            height: 240px;
+            border-radius: 8px; 
+            border-style: ;
+        }
+    </style>
 </head>
 <body>
-    <h1><%=info.Owner %></h1>
-    <img src="<%=info.imageUrl %>" alt="car_image" />
-    <h1><%=info.CarModel %></h1>
-    <h1><%=info.CarPlate %></h1>
-    <h1><%=info.Puc_Expiry %></h1>
-    <h1><%=info.License_Expiry %></h1>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="content mb-3">
+                    <div class="info">
+                        <div class="row innerinfo">
+                            <h1>Owner Name: </h1>
+                            <p><%= info.Owner %></p>
+                        </div>
+                        <div class="row innerinfo">
+                            <h1>Aadhar Number: </h1>
+                            <p><%= info.Aadhar_No %></p>
+                        </div>
+                        <div class="row innerinfo">
+                            <h1>Car Model: </h1>
+                            <p><%= info.CarModel %></p>
+                        </div>
+                        <div class="row innerinfo">
+                            <h1>Car Plate: </h1>
+                            <p><%= info.CarPlate %></p>
+                        </div>
+                        <div class="row innerinfo">
+                            <h1>PUC Expiry: </h1>
+                            <p><%= new Date(info.Puc_Expiry).toLocaleDateString() %></p>
+                        </div>
+                        <div class="row innerinfo">
+                            <h1>License Expiry: </h1>
+                            <p><%= new Date(info.License_Expiry).toLocaleDateString() %></p>
+                        </div>
+                    </div>
+                    <div class="car-image">
+                        <img src="<%= info.imageUrl %>" alt="Car Image" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <% layout("layouts/boilerplate.ejs") %>
 </body>
 </html>
