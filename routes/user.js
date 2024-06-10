@@ -82,5 +82,40 @@ console.log(person_owner);
 const account_user=await Carinfo.findOne({Owner:person_owner});
 res.render("cred/personal_info.ejs",{info:account_user});
 });
+router.get("/:username/PUC",async(req,res)=>
+{
+  const person_owner=req.params.username;
+  console.log(person_owner);
+res.render("cred/edit.ejs",{username:person_owner});
+});
 
+router.put("/:username/PUC", async (req, res) => {
+  const app_username = req.params.username;
+  console.log(app_username);
+
+  try {
+    // Retrieve user info
+    const app_user_info = await Carinfo.findOne({ Owner: app_username });
+    console.log(app_user_info);
+
+    // Calculate new PUC expiry date (extend by 1 year)
+    const currentPUCExpiry = app_user_info.Puc_Expiry;
+    const newPUCExpiry = new Date(currentPUCExpiry);
+    newPUCExpiry.setFullYear(newPUCExpiry.getFullYear() + 1);
+    console.log(currentPUCExpiry);
+    console.log(newPUCExpiry);
+    // Update PUC expiry date
+    const updatedUserInfo = await Carinfo.findOneAndUpdate(
+      { Owner: app_username },
+      { Puc_Expiry: newPUCExpiry }
+    );
+
+    req.flash("success", "PUC updated successfully");
+    res.redirect(`/${app_username}/details`);
+  } catch (error) {
+    console.error("Error updating PUC:", error);
+    req.flash("error", "Error updating PUC information. Please try again.");
+    res.redirect(`/${app_username}/PUC`);
+  }
+});
 module.exports = router;

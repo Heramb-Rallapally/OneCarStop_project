@@ -10,7 +10,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const userRouter = require("./routes/user.js");
 const ejsMate = require("ejs-mate");
-
+const methodOverride = require("method-override");
 app.engine('ejs', ejsMate);
 
 // Middleware setup
@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
-
+app.use(methodOverride("_method"));
 const sessionOptions = {
   secret: 'yourSecretKey',
   resave: false,

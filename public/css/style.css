@@ -106,3 +106,8 @@ body {
     border-radius: 10px; /* Optional: add rounded corners */
     margin-left: 20px; /* Space between the form and the image */
 }
+.PUC_container {
+    padding: 20px; 
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
