@@ -118,4 +118,30 @@ router.put("/:username/PUC", async (req, res) => {
     res.redirect(`/${app_username}/PUC`);
   }
 });
+router.get("/:username/FindUser",(req,res)=>
+{
+  const app_user=req.params.username;
+res.render("cred/finduser.ejs",{username:app_user});
+});
+router.post("/:username/FindUser", async (req, res) => {
+  try {
+    const carPlateNumber = req.body.carPlateNumber;
+    console.log("Car Plate Number:", carPlateNumber);
+
+    const app_user = await Carinfo.findOne({ CarPlate: carPlateNumber });
+    console.log("App User:", app_user);
+
+    if (app_user && app_user.Owner) {
+      console.log(app_user.Owner);
+      res.redirect(`/${app_user.Owner}/details`);
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error finding user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 module.exports = router;
