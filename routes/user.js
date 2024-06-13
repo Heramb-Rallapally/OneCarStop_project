@@ -88,6 +88,12 @@ router.get("/:username/PUC",async(req,res)=>
   console.log(person_owner);
 res.render("cred/edit.ejs",{username:person_owner});
 });
+router.get("/:username/License_renewal",async(req,res)=>
+  {
+    const person_owner=req.params.username;
+    console.log(person_owner);
+  res.render("cred/edit_lic.ejs",{username:person_owner});
+  });
 
 router.put("/:username/PUC", async (req, res) => {
   const app_username = req.params.username;
@@ -140,6 +146,34 @@ router.post("/:username/FindUser", async (req, res) => {
   } catch (error) {
     console.error("Error finding user:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.put("/:username/License_renewal", async (req, res) => {
+  const app_username = req.params.username;
+  console.log(app_username);
+
+  try {
+    // Retrieve user info
+    const app_user_info = await Carinfo.findOne({ Owner: app_username });
+    console.log(app_user_info);
+    const currentPUCExpiry = app_user_info.License_Expiry;
+    const newPUCExpiry = new Date(currentPUCExpiry);
+    newPUCExpiry.setFullYear(newPUCExpiry.getFullYear() + 5);
+    console.log(currentPUCExpiry);
+    console.log(newPUCExpiry);
+    // Update PUC expiry date
+    const updatedUserInfo = await Carinfo.findOneAndUpdate(
+      { Owner: app_username },
+      { License_Expiry: newPUCExpiry }
+    );
+
+    req.flash("success", "License updated successfully");
+    res.redirect(`/${app_username}/details`);
+  } catch (error) {
+    console.error("Error updating PUC:", error);
+    req.flash("error", "Error updating PUC information. Please try again.");
+    res.redirect(`/${app_username}/PUC`);
   }
 });
 
