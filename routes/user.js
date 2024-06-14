@@ -4,6 +4,7 @@ const User = require("../models/user.js");
 const passport = require("passport");
 const flash = require('connect-flash');
 const Carinfo = require("../models/carinfo.js");
+const Mcq=require("../models/mcq.js");
 
 // GET signup route
 router.get("/signup", (req, res) => {  
@@ -175,6 +176,39 @@ router.put("/:username/License_renewal", async (req, res) => {
     req.flash("error", "Error updating PUC information. Please try again.");
     res.redirect(`/${app_username}/PUC`);
   }
+});
+
+router.get("/:username/apply_License", async (req, res) => {
+  try {
+      const allQuestions = await Mcq.find();
+      const correctAnswers = allQuestions.map(question => question.answer); // Assuming 'answer' field in your schema
+      const username = req.params.username;
+
+      res.render("personal/exam.ejs", {
+          questions: allQuestions,
+          correctAnswers: correctAnswers,
+          username: username
+      });
+
+  } catch (error) {
+      console.error('Error fetching questions:', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+router.post('/:username/apply_License', (req, res) => {
+  const submittedAnswers = req.body.userAnswers;
+  const correctAnswers = req.body.answers;
+  const username = req.body.username;
+
+  // Logic to check answers
+  let score = 0;
+  for (let i = 0; i < correctAnswers.length; i++) {
+      if (submittedAnswers[i] === correctAnswers[i]) {
+          score++;
+      }
+  }
+console.log(score);
+res.send(`username=${username},marks obtained=${score}/${correctAnswers.length}`);
 });
 
 

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mcq-Online test</title>
+</head>
+<body>
+    <h1>Test Begins Now</h1>
+    <form method="POST" action="/<%=username%>/apply_License">
+        <% for (let i = 0; i < questions.length; i++) { %>
+            <div>
+                <h2><%= questions[i].question %></h2>
+                <p>A) <%= questions[i].option1 %></p>
+                <p>B) <%= questions[i].option2 %></p>
+                <p>C) <%= questions[i].option3 %></p>
+                <p>D) <%= questions[i].option4 %></p>
+                <input type="hidden" name="answers[]" value="<%= correctAnswers[i] %>">
+                <label>
+                    Your Answer:
+                    <select name="userAnswers[]">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                    </select>
+                </label>
+            </div>
+        <% } %>
+        <input type="hidden" name="username" value="<%= username %>">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -75,7 +75,6 @@ app.get("/demouser", async (req, res) => {
   res.send(registeredUser);
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   req.flash('error', 'Something went wrong!');
