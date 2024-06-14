@@ -12,6 +12,7 @@ const userRouter = require("./routes/user.js");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 app.engine('ejs', ejsMate);
+const mcq = require("./models/mcq.js");
 
 // Middleware setup
 app.use(express.static(path.join(__dirname, "public")));
