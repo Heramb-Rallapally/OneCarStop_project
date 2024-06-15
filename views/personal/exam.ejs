@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mcq-Online test</title>
 </head>
-<body>
-    <div style="display: flex; justify-content: flex-end;">
-        <div id="countdown" style="font-size: 36px;"></div>
-    </div>
+<body style="background-color: #0A0A23;color: #ffffff;">
     <form id="mcqForm" method="POST" action="/<%=username%>/apply_License">
         <% for (let i = 0; i < questions.length; i++) { %>
             <div style="font-family: 'Courier New', Courier, monospace;">
-                <h3><%= questions[i].question %></h3>
-                <p>A) <%= questions[i].option1 %></p>
-                <p>B) <%= questions[i].option2 %></p>
-                <p>C) <%= questions[i].option3 %></p>
-                <p>D) <%= questions[i].option4 %></p>
+            <div class="question" style="width:1200px;border:solid;">
+                <h3 ><%= questions[i].question %></h3>
+                <p style="font-size:25px">A) <%= questions[i].option1 %></p>
+                <p style="font-size:25px">B) <%= questions[i].option2 %></p>
+                <p style="font-size:25px">C) <%= questions[i].option3 %></p>
+                <p style="font-size:25px">D) <%= questions[i].option4 %></p>
                 <br>
                 <input type="hidden" name="answers[]" value="<%= correctAnswers[i] %>">
-                <label>
+                <label style="font-size: 30px;">
                     Your Answer:
                     <select name="userAnswers[]">
                         <option value="A">A</option>
@@ -29,41 +27,13 @@
                     </select>
                 </label>
             </div>
+        </div>
             <br>
         <% } %>
         <input type="hidden" name="username" value="<%= username %>">
         <button type="submit" style="font-size: 25px;">Submit</button>
     </form>
-
-    <script>
-        // Countdown Timer Script
-        function startCountdown(durationSeconds) {
-            const countdownElement = document.getElementById('countdown');
-
-            // Update the countdown every second
-            const intervalId = setInterval(() => {
-                durationSeconds--;
-
-                // Calculate remaining hours, minutes, and seconds
-                const hours = Math.floor(durationSeconds / 3600);
-                const minutes = Math.floor((durationSeconds % 3600) / 60);
-                const seconds = durationSeconds % 60;
-                const formattedCountdown = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                countdownElement.textContent = formattedCountdown;
-                if (durationSeconds <= 0) {
-                    clearInterval(intervalId);
-                    countdownElement.textContent = 'Time Up!';
-                    // Optionally submit the form when time is up
-                    document.getElementById('mcqForm').submit();
-                }
-            }, 1000); // Update every second (1000 milliseconds)
-        }
-
-        window.onload = function() {
-            const countdownDurationSeconds = 900;
-            startCountdown(countdownDurationSeconds);
-        };
-    </script>
+</div>
     <% layout("layouts/boilerplate_test.ejs",{questions,correctAnswers,username}) %>  
 </body>
 </html>

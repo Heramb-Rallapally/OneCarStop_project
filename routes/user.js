@@ -70,7 +70,7 @@ router.post("/:username", async (req, res) => {
   try {
     const newlisting = new Carinfo(info);
     await newlisting.save();
-    res.redirect(`/${username}`);
+    res.redirect(`/${info.username}/details`);
   } catch (error) {
     req.flash("error", "Error saving car information. Please try again.");
     res.redirect(`/${username}/new`);
