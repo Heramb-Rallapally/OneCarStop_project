@@ -5,11 +5,8 @@
                 <p>This feature of ours helps you find a person , who caused you any kind of inconvience may it be-</p>
                 <ul>
                 <li>Overspeeding</li>
-                <br>
                 <li>Impaired Driver</li>
-                <br>
                 <li>Inattentive Driving</li>
-                <br>
                 <li>Road Rage</li>
             </ul>
             <p>By reporting these issues, you contribute to making our roads safer for everyone. Together, we can promote responsible driving and hold those accountable who put others at risk. 
@@ -17,8 +14,10 @@
         </div>
         <p style="font-family: 'Courier New', Courier, monospace;font-size: 20px;">Enter The CarPlate Number</p>
        <form method="post" action="/<%=username%>/FindUser">
-        <input type="text" name="carPlateNumber" placeholder="Enter the CarPlate Number" required/>
-        <button type="submit">Submit</button>
+        <input type="text" name="carPlateNumber" placeholder="Enter the CarPlate Number" required style="font-size:20px"/>
+        <br>
+        <button type="submit" style="font-size:25px">Submit</button>
+        <br>
     </form>
 </div>
     <% layout("layouts/boilerplate_personal.ejs") %>    

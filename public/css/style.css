@@ -53,8 +53,8 @@
     flex-shrink: 0; /* Prevent the image from shrinking */
     padding: 20px; /* Add padding for spacing */
     max-width: 50%; 
-    width: 400px;
-    height:300px/* Limit the width to 50% of the container */
+    width: 500px;
+    height:500px/* Limit the width to 50% of the container */
 }
 .login_heading_div {
     flex: 1; /* Allow the form container to take up space */
@@ -105,7 +105,7 @@
     margin-left: 20px; /* Space between the form and the image */
 }
 .PUC_container {
-    padding: 20px; 
+    padding: 10px; 
     font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
+    font-size: 25px;
 }
