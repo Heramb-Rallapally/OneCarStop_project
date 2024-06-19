@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAP FOR DRIVING TEST</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 400px;
+            height:400px;
+            margin-left:400px;
+            margin-top:200px;
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <h1>hello</h1>
+    <script>
+        // Use your actual Mapbox access token here
+        let map_access_key = "pk.eyJ1Ijoic3VyeWEtcmFsbGFwYWxseSIsImEiOiJjbHhqdHNkNDExdjR3MmpzaXcwdHd4ZXBnIn0.SyV1GeMHz8Cx6jeu5HX-qg";
+        
+        mapboxgl.accessToken = map_access_key;
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            center: [72.8777, 19.0760], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
+    </script>
+</body>
+</html>

@@ -211,5 +211,11 @@ console.log(score);
 res.send(`username=${username},marks obtained=${score}/${correctAnswers.length}`);
 });
 
+router.get("/:username/centre_test",(req,res)=>
+{
+/*res.send("heyy");*/
+res.render("personal/personal_map.ejs");
+});
+
 
 module.exports = router;
