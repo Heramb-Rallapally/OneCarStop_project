@@ -33,8 +33,23 @@ const carinfoSchema = new mongoose.Schema({
   },
   Puc_Expiry : {
     type: Date,
+  },
+  address : {
+    type:String
+  },
+  geometry :{
+      type: {
+        type: String, // Don't do `{ location: { type: String } }`
+        enum: ['Point'], // 'location.type' must be 'Point'
+        required: true
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      }
+    }
   }
-});
+);
 
 const carinfo = mongoose.model("Carinfo", carinfoSchema);
 

@@ -11,7 +11,7 @@ main().then(() => {
 const Carinfo = require('./models/carinfo.js');
 
 const allCars = [{
-    Owner: "Surya",
+    Owner: "Surya2",
     CarModel: "Ertiga ZXI",
     Aadhar_No: "5hbdgf",
     imageUrl: "https://imgd.aeplcdn.com/1280x720/cw/ec/31422/Maruti-Suzuki-Ertiga-Right-Front-Three-Quarter-153025.jpg",
@@ -19,13 +19,12 @@ const allCars = [{
     CarPlate: "TS07HG2345",
     UserImage: "https://imgd.aeplcdn.com/1280x720/cw/ec/31422/Maruti-Suzuki-Ertiga-Right-Front-Three-Quarter-153025.jpg",
     License_Expiry: new Date('2024-12-29'),
-    Puc_Expiry: new Date('2025-04-08')
+    Puc_Expiry: new Date('2025-04-08'),
+    address:"THANE",
 }];
+Carinfo.insertMany(allCars);
 
-/*Carinfo.insertMany(allCars).then((res) => {
-    console.log("users added");
-}).catch((err) => {
-    console.log(err);
-});*/
+
+
 
 

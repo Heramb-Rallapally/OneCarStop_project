@@ -5,8 +5,10 @@ const passport = require("passport");
 const flash = require('connect-flash');
 const Carinfo = require("../models/carinfo.js");
 const Mcq=require("../models/mcq.js");
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const map_token="pk.eyJ1Ijoic3VyeWEtcmFsbGFwYWxseSIsImEiOiJjbHhqdHNkNDExdjR3MmpzaXcwdHd4ZXBnIn0.SyV1GeMHz8Cx6jeu5HX-qg";
+const geocodingClient = mbxGeocoding({ accessToken:map_token });
 
-// GET signup route
 router.get("/signup", (req, res) => {  
   res.render("users/signup.ejs");
 });
@@ -66,7 +68,7 @@ router.get("/:username/new", (req, res) => {
 router.post("/:username", async (req, res) => {
   const { username } = req.params;
   const info = req.body.info;
-
+  console.log("post req trial");
   try {
     const newlisting = new Carinfo(info);
     await newlisting.save();
@@ -195,7 +197,7 @@ router.get("/:username/apply_License", async (req, res) => {
       res.status(500).send('Internal Server Error');
   }
 });
-router.post('/:username/apply_License', (req, res) => {
+router.post('/:username/apply_License', async (req, res) => {
   const submittedAnswers = req.body.userAnswers;
   const correctAnswers = req.body.answers;
   const username = req.body.username;
@@ -208,12 +210,29 @@ router.post('/:username/apply_License', (req, res) => {
       }
   }
 console.log(score);
-res.send(`username=${username},marks obtained=${score}/${correctAnswers.length}`);
+if(score>=4)
+  {
+  const entire_info=await Carinfo.find({Owner:username});
+  const city=entire_info[0].address;
+  let response=await geocodingClient.forwardGeocode({
+      query:city,
+      limit:1,
+    }).send(); 
+  entire_info.geometry=response.body.features[0].geometry;
+  console.log(entire_info);
+  res.redirect(`/${username}/centre_test`);
+  }
+  else
+  {
+    res.send(`username=${username},marks obtained=${score}/${correctAnswers.length}`);
+  }
+
 });
 
 router.get("/:username/centre_test",(req,res)=>
 {
-/*res.send("heyy");*/
+let user_naav=req.params.username;
+console.log(`${user_naav} is qualified`);
 res.render("personal/personal_map.ejs");
 });
 
