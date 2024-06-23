@@ -213,6 +213,7 @@ console.log(score);
 if(score>=4)
   {
   const entire_info=await Carinfo.find({Owner:username});
+  console.log(entire_info[0]);
   const city=entire_info[0].address;
   let response=await geocodingClient.forwardGeocode({
       query:city,
@@ -220,7 +221,7 @@ if(score>=4)
     }).send(); 
   entire_info.geometry=response.body.features[0].geometry;
   console.log(entire_info);
-  res.redirect(`/${username}/centre_test`);
+  res.redirect(`/${username}/centre_test?city=${city}&geometry=${JSON.stringify(entire_info.geometry)}`);
   }
   else
   {
@@ -229,12 +230,14 @@ if(score>=4)
 
 });
 
-router.get("/:username/centre_test",(req,res)=>
-{
-let user_naav=req.params.username;
-console.log(`${user_naav} is qualified`);
-res.render("personal/personal_map.ejs");
+router.get("/:username/centre_test", (req, res) => {
+  const username = req.params.username;
+  const { city, geometry } = req.query;
+  
+  console.log(`${username} is qualified`);
+  console.log(`City: ${city}`);
+  const coordinate=JSON.parse(geometry);
+  res.render("personal/personal_map.ejs", { username, city, longitude:coordinate.coordinates[0],latitude:coordinate.coordinates[1] });
 });
-
 
 module.exports = router;

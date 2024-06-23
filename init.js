@@ -10,7 +10,7 @@ main().then(() => {
 
 const Carinfo = require('./models/carinfo.js');
 
-const allCars = [{
+/*const allCars = [{
     Owner: "Surya2",
     CarModel: "Ertiga ZXI",
     Aadhar_No: "5hbdgf",
@@ -22,7 +22,22 @@ const allCars = [{
     Puc_Expiry: new Date('2025-04-08'),
     address:"THANE",
 }];
-Carinfo.insertMany(allCars);
+Carinfo.insertMany(allCars);*/
+/*Carinfo.updateOne({Owner:'Somnath'},{address:'Jamnagar'}).then((res)=>
+{
+    console.log(res);
+}).catch((err)=>{
+    console.log(err);
+});
+Carinfo.updateOne({Owner:'Heramb'},{address:'Warangal'}).then((res)=>
+{
+    console.log(res);
+}).catch((err)=>
+{
+console.log(err);
+});*/
+
+
 
 
 
