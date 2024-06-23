@@ -8,6 +8,31 @@ const Mcq=require("../models/mcq.js");
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const map_token="pk.eyJ1Ijoic3VyeWEtcmFsbGFwYWxseSIsImEiOiJjbHhqdHNkNDExdjR3MmpzaXcwdHd4ZXBnIn0.SyV1GeMHz8Cx6jeu5HX-qg";
 const geocodingClient = mbxGeocoding({ accessToken:map_token });
+const axios = require('axios');
+const locations=
+[ //Mumbai-->Dadar
+  
+  [ 72.8477,19.0178],
+  //Delhi-->connauaght plac
+  [  77.2177,28.6304],
+  
+  [80.2636,22.5958],
+  //chennai-->T nagar
+  
+  [80.2341,13.0418],
+  //GachBowli-->Hyderabad
+  [78.3489,17,4401],
+  //whiteField-->Banglore
+  [77.7500,12.98],
+  //bhopal
+  [77.4126,23.2599],
+  //jaipur
+  [75.8382,26.9494],
+  //patna
+  [85.12,25.35],
+  //pune
+  [73.8739,18.5284],
+];
 
 router.get("/signup", (req, res) => {  
   res.render("users/signup.ejs");
@@ -230,14 +255,43 @@ if(score>=4)
 
 });
 
-router.get("/:username/centre_test", (req, res) => {
+router.get("/:username/centre_test", async (req, res) => {
   const username = req.params.username;
   const { city, geometry } = req.query;
-  
+
   console.log(`${username} is qualified`);
   console.log(`City: ${city}`);
-  const coordinate=JSON.parse(geometry);
-  res.render("personal/personal_map.ejs", { username, city, longitude:coordinate.coordinates[0],latitude:coordinate.coordinates[1] });
+  const coordinate = JSON.parse(geometry);let mini=1000000;let minx=0;let miny=0;
+  for(let i=0;i<locations.length;i++)
+    {
+  const start = coordinate.coordinates;
+  const end = locations[i]; // Assuming you want to calculate distance to Kolkata
+  console.log('Start coordinates:', start);
+  console.log('End coordinates:', end);
+
+  const map_token = "pk.eyJ1Ijoic3VyeWEtcmFsbGFwYWxseSIsImEiOiJjbHhqdHNkNDExdjR3MmpzaXcwdHd4ZXBnIn0.SyV1GeMHz8Cx6jeu5HX-qg";
+  
+  const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?access_token=${map_token}&geometries=geojson`;
+
+  try {
+    const response = await axios.get(url);
+    const data = response.data;
+
+    if (data.routes && data.routes.length > 0) {
+      const distance = data.routes[0].distance / 1000; // Convert to kilometers
+      if(mini>distance)
+        {
+          mini=distance;x=end[0];y=end[1];
+        }
+      console.log(`Distance: ${distance} Kilometers`);
+    } else {
+      console.log('No routes found');
+    }
+  } catch (error) {
+    console.error('Error fetching directions:', error);
+  }
+}
+   res.render("personal/personal_map.ejs", { username, city, longitude: x, latitude: y });
 });
 
 module.exports = router;

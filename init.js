@@ -23,22 +23,35 @@ const Carinfo = require('./models/carinfo.js');
     address:"THANE",
 }];
 Carinfo.insertMany(allCars);*/
-/*Carinfo.updateOne({Owner:'Somnath'},{address:'Jamnagar'}).then((res)=>
+Carinfo.updateOne({Owner:'Somnath'},{address:'Jamnagar'}).then((res)=>
 {
     console.log(res);
 }).catch((err)=>{
     console.log(err);
 });
-Carinfo.updateOne({Owner:'Heramb'},{address:'Warangal'}).then((res)=>
+Carinfo.updateOne({Owner:'Heramb'},{address:'Thane'}).then((res)=>
 {
     console.log(res);
 }).catch((err)=>
 {
 console.log(err);
-});*/
+});
+Carinfo.updateOne({Owner:'Gautam Rallapally'},{address:'Vijayawada'}).then((res)=>
+    {
+        console.log(res);
+    }).catch((err)=>
+    {
+    console.log(err);
+    });
 
-
-
+    Carinfo.updateOne({Owner:'Rani_Rallapally'},{address:'Razole'}).then((res)=>
+        {
+            console.log(res);
+        }).catch((err)=>
+        {
+        console.log(err);
+        });
+    
 
 
 
