@@ -7,12 +7,15 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const userRouter = require("./routes/user.js");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 app.engine('ejs', ejsMate);
 const mcq = require("./models/mcq.js");
+const mongodb_atlas="mongodb+srv://heramb3112:xYat794RruxmdR4M@cluster0.2bhxsf0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URL=mongodb_atlas;
 
 // Middleware setup
 app.use(express.static(path.join(__dirname, "public")));
@@ -20,8 +23,20 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+const store =MongoStore.create({
+  mongoUrl:MONGO_URL,
+  crypto : {
+    secret : "mysecretcode",
+  },
+  touchAfter:24*3600,
+});
+store.on("error",()=>
+{
+console.log("error in mongo session store");
+});
 const sessionOptions = {
-  secret: 'yourSecretKey',
+  secret: 'mysecretcode',
+  store,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } 
@@ -51,7 +66,7 @@ app.use('/', userRouter);
 
 // Database connection
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/carStop');
+  await mongoose.connect(MONGO_URL);
   console.log("DB connected!");
 }
 

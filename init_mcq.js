@@ -1,15 +1,33 @@
 const mongoose = require('mongoose');
 const mcq = require('./models/mcq.js');
+const mongodb_atlas = "mongodb+srv://heramb3112:xYat794RruxmdR4M@cluster0.2bhxsf0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URL = mongodb_atlas;
 
+// Connect to MongoDB Atlas
+mongoose.connect(MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000 // 30 seconds
+});
 const question2=new mcq({
-    question:"What does a red traffic light indicate?",
-        option1:"Stop",
-        option2:"slow down",
-        option3:"yield",
-        option4:"Go if the way is clear",
-        answer:"A",
+    question:"How far ahead should you signal before making a turn?",
+        option1:"50 feet",
+        option2:"100 feet",
+        option3:"200 feet",
+        option4:"500 feet",
+        answer:"B",
 });
 question2.save();
+
+const question3=new mcq({
+    question:"What is the minimum safe following distance between vehicles in good weather conditions?",
+    option1:"One car length",
+    option2:"Two seconds",
+    option3:"Three seconds",
+    option4:"Four seconds",
+    answer:"C",
+});
+question3.save();
 /*const allquestions=[
     {
         question:"What does a red traffic light indicate?",
@@ -85,7 +103,7 @@ question2.save();
     }
 ];
 
-Mcq_questions.insertMany(allquestions).then((res)=>
+mcq.insertMany(allquestions).then((res)=>
 {
 console.log(res);
 }).catch((err)=>
