@@ -97,7 +97,7 @@ router.post("/:username", async (req, res) => {
   try {
     const newlisting = new Carinfo(info);
     await newlisting.save();
-    res.redirect(`/${info.username}/details`);
+    res.redirect(`/${username}`);
   } catch (error) {
     req.flash("error", "Error saving car information. Please try again.");
     res.redirect(`/${username}/new`);
@@ -250,7 +250,7 @@ if(score>=4)
   }
   else
   {
-    res.send(`username=${username},marks obtained=${score}/${correctAnswers.length}`);
+    res.send(`not qualified!,username=${username},marks obtained=${score}/${correctAnswers.length}`);
   }
 
 });

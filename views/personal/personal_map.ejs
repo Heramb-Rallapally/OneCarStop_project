@@ -29,19 +29,23 @@
            <div style="width:600px;height:450px"></div>
         </div>
     </div>
+    <h1 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">The location where the offline test is to given on the left</h1>
     <% layout("layouts/boilerplate_personal.ejs") %>    
 </body>
 <script>
     let map_access_key = "pk.eyJ1Ijoic3VyeWEtcmFsbGFwYWxseSIsImEiOiJjbHhqdHNkNDExdjR3MmpzaXcwdHd4ZXBnIn0.SyV1GeMHz8Cx6jeu5HX-qg";
     mapboxgl.accessToken = map_access_key;
-    const lng=<%-longitude%>;
-    const lat=<%-latitude%>;
+    const lng=<%=longitude%>;
+    const lat=<%=latitude%>;
 
         const map = new mapboxgl.Map({
         container: 'map', // container ID
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [lng, lat], // starting position [lng, lat]
-        zoom: 11// starting zoom
+        zoom: 13// starting zoom
         });
+        const marker1 = new mapboxgl.Marker()
+        .setLngLat([lng, lat])
+        .addTo(map);
         
 </script>
