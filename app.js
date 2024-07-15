@@ -92,6 +92,5 @@ app.get("/demouser", async (req, res) => {
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  req.flash('error', 'Something went wrong!');
   res.redirect('/');
 });
